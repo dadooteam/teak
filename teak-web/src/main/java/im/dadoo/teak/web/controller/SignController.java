@@ -34,7 +34,7 @@ public class SignController extends BaseController {
 			return "signin";
 		}
 		else {
-			return "redirect:/admin";
+			return "redirect:admin";
 		}
 	}
 	
@@ -53,10 +53,10 @@ public class SignController extends BaseController {
 				}
 			}
 			else {
-				return "redirect:/signin";
+				return "redirect:signin";
 			}
 		}
-		return "redirect:/admin";
+		return "redirect:admin";
 	}
 	
 	@RequestMapping(value = "/signout", method = RequestMethod.GET)

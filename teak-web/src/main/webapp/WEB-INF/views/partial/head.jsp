@@ -18,7 +18,7 @@
 
 <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
+<base href="<%= request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/" %>" />
 <style>
   h1,h2,h3,h4,h5,h6,a {
     font-family: 'Microsoft YaHei','WenQuanYi Micro Hei';

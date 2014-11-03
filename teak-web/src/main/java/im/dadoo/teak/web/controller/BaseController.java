@@ -16,9 +16,15 @@ import im.dadoo.teak.data.po.Link;
 import im.dadoo.teak.data.po.Page;
 import im.dadoo.teak.data.po.User;
 import im.dadoo.teak.web.constant.Cons;
+import im.dadoo.teak.web.vo.PaginationVO;
+
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.ui.ModelMap;
 
 /**
@@ -59,6 +65,23 @@ public class BaseController {
 	protected void renderLatestArchives(ModelMap map) {
 		List<Archive> latestArchives = this.archiveService.list(10);
 		map.addAttribute("latestArchives", latestArchives);
+	}
+	
+	protected PaginationVO renderPagination(HttpServletRequest request, String baseUrl, int cur, int max) {
+	  String url = baseUrl;
+	  if (request.getParameterMap().size() == 0) {
+	    //no parameters
+	    url += "?pagecount=%s";
+	  } else {
+	    if (request.getParameter("pagecount") != null) {
+	      //has pagecount parameter
+	      url += "?" + request.getQueryString().replace("pagecount=" + request.getParameter("pagecount"), "pagecount=%s");
+	    } else {
+	      //has not pagecount
+	      url += "?" + request.getQueryString() + "&pagecount=%s";
+	    }
+	  }
+	  return new PaginationVO(url, cur, max);
 	}
 	
 	protected User getVisitor(HttpSession session) {

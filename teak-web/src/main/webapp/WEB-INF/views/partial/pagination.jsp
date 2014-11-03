@@ -1,23 +1,27 @@
+<%@page import="im.dadoo.teak.web.vo.PaginationVO"%>
 <%@page language="java" contentType="text/html;charset=UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %> 
 
 <%
-  Integer pagecount = (Integer)request.getAttribute("pagecount");
-  Integer maxPagecount = (Integer)request.getAttribute("maxPagecount");
+  PaginationVO paginationVO = (PaginationVO)request.getAttribute("paginationVO");
+	String url = paginationVO.getUrl();
+	int cur = paginationVO.getCur();
+	int max = paginationVO.getMax();
 %>
 
+<%= url %>
 <ul class="pagination">
-  <% if (pagecount > 1) { %>
-    <li><span><a href="?pagecount=<%= pagecount - 1 %>">&laquo;</a></span></li>
+  <% if (cur > 1) { %>
+  	<li><span><a href="<%= String.format(url, cur - 1) %>">&laquo;</a></span></li>
   <% } %>
-  <% for (Integer i = 1; i <= maxPagecount; i++) { %>
-    <% if (i.equals(pagecount)) { %>
+  <% for (int i = 1; i <= max; i++) { %>
+    <% if (i == cur) { %>
       <li class="active"><span><%= i %></span></li>
     <% } else { %>
-      <li><span><a href="?pagecount=<%= i %>"><%= i %></a></span></li>
+    	<li><span><a href="<%= String.format(url, i) %>"><%= i %></a></span></li>
     <% } %>
   <% } %>
-  <% if (pagecount < maxPagecount) { %>
-    <li><span><a href="?pagecount=<%= pagecount + 1 %>">&raquo;</a></span></li>
+  <% if (cur < max) { %>
+  	<li><span><a href="<%= String.format(url, cur + 1) %>">&raquo;</a></span></li>
   <% } %>
 </ul>

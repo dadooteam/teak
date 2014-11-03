@@ -9,11 +9,17 @@ package im.dadoo.teak.web.controller;
 import im.dadoo.teak.data.po.Archive;
 import im.dadoo.teak.data.po.Category;
 import im.dadoo.teak.web.constant.Cons;
+import im.dadoo.teak.web.vo.PaginationVO;
 import im.dadoo.teak.web.ao.FileService;
+
 import java.io.IOException;
 import java.util.List;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +55,7 @@ public class ArchiveController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
-	public String getListPage(ModelMap map, @PathVariable Integer id,
+	public String getListPage(ModelMap map, HttpServletRequest request , @PathVariable Integer id,
 			@RequestParam(required = false) Integer pagecount,
       @RequestParam(required = false) Integer pagesize) {
 		
@@ -63,9 +69,8 @@ public class ArchiveController extends BaseController {
 			List<Archive> archives = this.archiveService.listByCategoryId(id, pagecount, pagesize);
 			map.addAttribute("category", category);
 			map.addAttribute("archives", archives);
-			map.addAttribute("pagecount", pagecount);
-      Integer maxPagecount = 1 + this.archiveService.sizeByCategoryId(id) / pagesize;
-			map.addAttribute("maxPagecount", maxPagecount);
+      Integer max = 1 + this.archiveService.sizeByCategoryId(id) / pagesize;
+			map.addAttribute("paginationVO", this.renderPagination(request, "category/" + id, pagecount, max));
 			return "archive-list";
 		}
 		else {

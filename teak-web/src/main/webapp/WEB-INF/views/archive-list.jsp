@@ -30,7 +30,7 @@
               <% if (archives != null) { %>
                 <% for (Archive archive : archives) { %>
                   <li style="border-bottom:1px solid #eee;padding:5px">
-                    <h3 style="font-weight:bold"><a href="/archive/<%= archive.getId() %>"><%= archive.getTitle() %></a></h3>
+                    <h3 style="font-weight:bold"><a href="archive/<%= archive.getId() %>"><%= archive.getTitle() %></a></h3>
                     <small style="color:#666 "><%= archive.getAuthor() %>&nbsp;发布于&nbsp;<%= DateFormatUtils.format(archive.getPublishDatetime(), "yyyy-MM-dd HH:mm",TimeZone.getTimeZone("GMT+8")) %>&nbsp;<%= archive.getClick() %>浏览</small>
                     <div style="margin:20px 0px">
                       <% if(archive.getText().length() < 230) { %>
@@ -39,7 +39,7 @@
                         <%= archive.getText().substring(0, 230) %>...
                       <% } %>
                     </div>
-                    <div><a href="/archive/<%= archive.getId() %>">显示全文</a></div>
+                    <div><a href="archive/<%= archive.getId() %>">显示全文</a></div>
                   </li>
                 <% } %>
               <% } %>
