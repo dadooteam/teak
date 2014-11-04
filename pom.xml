@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>im.dadoo</groupId>
-  <artifactId>teak</artifactId>
-  <version>0.9.0</version>
-  <packaging>pom</packaging>
-  <modules>
-    <module>teak-data</module>
-    <module>teak-biz</module>
-    <module>teak-web</module>
-  </modules>
-  
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>im.dadoo</groupId>
+	<artifactId>teak</artifactId>
+	<version>0.9.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>teak-data</module>
+		<module>teak-biz</module>
+		<module>teak-web</module>
+	</modules>
+
+	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springframework.version>4.1.0.RELEASE</springframework.version>
 	</properties>
-	
-  <dependencyManagement>
+
+	<dependencyManagement>
 		<dependencies>
 			<!-- sub project dependencies -->
 			<dependency>
@@ -132,11 +133,22 @@
 				<artifactId>log4j-core</artifactId>
 				<version>2.0</version>
 			</dependency>
+			<dependency>
+				<groupId>com.qiniu</groupId>
+				<artifactId>sdk</artifactId>
+				<version>[6.1.7, 6.999]</version>
+			</dependency>
 			<!-- test dependencies -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${springframework.version}</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>

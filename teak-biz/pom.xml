@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>im.dadoo</groupId>
-    <artifactId>teak</artifactId>
-    <version>0.9.0</version>
-  </parent>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>im.dadoo</groupId>
+		<artifactId>teak</artifactId>
+		<version>0.9.0</version>
+	</parent>
 
-  <artifactId>teak-biz</artifactId>
+	<artifactId>teak-biz</artifactId>
 
-  <dependencies>
-    <dependency>
+	<dependencies>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>teak-data</artifactId>
 		</dependency>
@@ -50,10 +51,18 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>spring-jdbc-support</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>sdk</artifactId>
+		</dependency>
 		<!-- test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-  </dependencies>
+		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+			</dependency>
+	</dependencies>
 </project>

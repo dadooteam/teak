@@ -18,8 +18,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  * @author codekitten
  */
 @Configuration
-@ComponentScan("im.dadoo.teak.core")
-public class TeakCoreContext {
+@ComponentScan("im.dadoo.teak.biz")
+public class BizContext {
   
   @Bean(initMethod = "init", destroyMethod = "close")
   public DataSource dataSource() {
