@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="/admin/link/add">新链接</a>
+        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/link/add">新链接</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -40,8 +40,8 @@
                 <td><%= link.getUrl() %></td>
                 <td><%= link.getDescription() %></td>
                 <td>
-                  <a href="/admin/link/<%= link.getId() %>/update">修改</a>
-                  <a href="/admin/link/<%= link.getId() %>/delete">删除</a>
+                  <a href="<%= request.getContextPath() %>/admin/link/<%= link.getId() %>/update">修改</a>
+                  <a href="<%= request.getContextPath() %>/admin/link/<%= link.getId() %>/delete">删除</a>
                 </td>
               </tr>
               <% } %>

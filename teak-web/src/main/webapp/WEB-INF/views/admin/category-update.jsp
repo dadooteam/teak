@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-6">
-        <form id="update-category-form" action="/admin/category/<%= category.getId() %>/update" method="post">
+        <form id="update-category-form" action="<%= request.getContextPath() %>/admin/category/<%= category.getId() %>/update" method="post">
           <div class="form-group">
             <label for="name">名称</label>
             <input id="name" name="name" type="text" class="form-control" value="<%= category.getName() %>">

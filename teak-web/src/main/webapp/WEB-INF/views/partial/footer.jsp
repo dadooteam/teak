@@ -12,9 +12,9 @@
         <h3><span class="glyphicon glyphicon-cog"></span>管理</h3>
         <br>
         <ul>
-          <li><span class="glyphicon glyphicon-expand"></span><a href="admin">管理员入口</a></li>
+          <li><span class="glyphicon glyphicon-expand"></span><a href="<%= request.getContextPath() %>/admin">管理员入口</a></li>
           <% if (visitor != null) { %>
-            <li><span class="glyphicon glyphicon-expand"></span><a href="signout">退出</a></li>
+            <li><span class="glyphicon glyphicon-expand"></span><a href="<%= request.getContextPath() %>/signout">退出</a></li>
           <% } %>
         </ul>
       </div>

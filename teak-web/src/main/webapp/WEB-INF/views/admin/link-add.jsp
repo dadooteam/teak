@@ -18,7 +18,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-6">
-        <form id="new-link-form" action="/admin/link" method="post">
+        <form id="new-link-form" action="<%= request.getContextPath() %>/admin/link" method="post">
           <div class="form-group">
             <label for="name">名称</label>
             <input id="name" name="name" type="text" class="form-control">

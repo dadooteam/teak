@@ -16,22 +16,29 @@ import im.dadoo.teak.data.po.Link;
 import im.dadoo.teak.data.po.Page;
 import im.dadoo.teak.data.po.User;
 import im.dadoo.teak.web.constant.Cons;
+import im.dadoo.teak.web.util.RequestUtil;
 import im.dadoo.teak.web.vo.PaginationVO;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
+
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 
 /**
  *
  * @author codekitten
  */
 public class BaseController {
+  
+  protected static final Logger logger = LoggerFactory.getLogger("im.dadoo.teak.web.controller");
   
   @Resource
   protected ArchiveService archiveService;
@@ -67,21 +74,13 @@ public class BaseController {
 		map.addAttribute("latestArchives", latestArchives);
 	}
 	
-	protected PaginationVO renderPagination(HttpServletRequest request, String baseUrl, int cur, int max) {
-	  String url = baseUrl;
-	  if (request.getParameterMap().size() == 0) {
-	    //no parameters
-	    url += "?pagecount=%s";
-	  } else {
-	    if (request.getParameter("pagecount") != null) {
-	      //has pagecount parameter
-	      url += "?" + request.getQueryString().replace("pagecount=" + request.getParameter("pagecount"), "pagecount=%s");
-	    } else {
-	      //has not pagecount
-	      url += "?" + request.getQueryString() + "&pagecount=%s";
-	    }
-	  }
-	  return new PaginationVO(url, cur, max);
+	protected PaginationVO renderPagination(Map<String, String[]> params, String baseUrl, int cur, int max) {
+	  Preconditions.checkNotNull(params);
+	  Map<String, String[]> cloned = Maps.newHashMap(params);
+	  cloned.put("pagecount", new String[]{"%s"});
+	  String queryString = RequestUtil.buildQueryString(cloned);
+	  logger.info(queryString);
+	  return new PaginationVO(baseUrl + "?" + queryString, cur, max);
 	}
 	
 	protected User getVisitor(HttpSession session) {

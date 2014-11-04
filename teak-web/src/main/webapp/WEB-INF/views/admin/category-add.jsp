@@ -18,7 +18,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-6">
-        <form id="new-category-form" action="/admin/category" method="post">
+        <form id="new-category-form" action="<%= request.getContextPath() %>/admin/category" method="post">
           <div class="form-group">
             <label for="name">名称</label>
             <input id="name" name="name" type="text" class="form-control">

@@ -23,7 +23,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="/admin/archive/add">新文章</a>
+        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/archive/add">新文章</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -39,14 +39,14 @@
             <% if (archives != null) { %>
               <% for (Archive ar : archives) { %>
               <tr>
-                <td><a href="/archive/<%= ar.getId() %>"><%= ar.getTitle() %></a></td>
+                <td><a href="<%= request.getContextPath() %>/archive/<%= ar.getId() %>"><%= ar.getTitle() %></a></td>
                 <td><%= ar.getAuthor() %></td>
                 <td><%= categoryMap.get(ar.getCategoryId()).getName() %></td>
                 <td><%= ar.getClick() %></td>
                 <td><%= DateFormatUtils.format(ar.getPublishDatetime(), "yyyy-MM-dd HH:mm",TimeZone.getTimeZone("GMT+8")) %></td>
                 <td>
-                  <a href="/admin/archive/<%= ar.getId() %>/update">修改</a>
-                  <a href="/admin/archive/<%= ar.getId() %>/delete">删除</a>
+                  <a href="<%= request.getContextPath() %>/admin/archive/<%= ar.getId() %>/update">修改</a>
+                  <a href="<%= request.getContextPath() %>/admin/archive/<%= ar.getId() %>/delete">删除</a>
                 </td>
               </tr>
               <% } %>

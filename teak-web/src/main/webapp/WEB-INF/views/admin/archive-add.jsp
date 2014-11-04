@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <form id="new-post-form" enctype="multipart/form-data" action="/admin/archive" method="post">
+        <form id="new-post-form" enctype="multipart/form-data" action="<%= request.getContextPath() %>/admin/archive" method="post">
           <div class="form-group">
             <label for="title">标题</label>
             <input name="title" type="text" class="form-control">
@@ -62,7 +62,7 @@
     CKEDITOR.replace("html",{
       toolbar:"Basic",
       uiColor:"#9AB8F3",
-      filebrowserUploadUrl: "/api/upload/media"
+      filebrowserUploadUrl: "<%= request.getContextPath() %>/api/upload/media"
     });
   </script>
 </body>

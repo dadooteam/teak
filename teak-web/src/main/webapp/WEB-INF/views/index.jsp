@@ -25,7 +25,7 @@
         <div class="board">
           <div class="board-head" style="padding:1px 0px;border-bottom:3px solid #3DBAF4 ">
             <h3>
-              <a href="category/4" style="color:#3DBAF4">图片新闻</a>
+              <a href="<%= request.getContextPath() %>/category/4" style="color:#3DBAF4">图片新闻</a>
             </h3>
           </div>
           <div class="board-body">
@@ -34,10 +34,10 @@
                 <% for (Archive archive : imageArchives) { %>
                   <div class="item">
                     <div>
-                      <img src="<%= archive.getThumbnailPath() %>" style="width:400px;height:250px">
+                      <img src="<%= request.getContextPath() %>/<%= archive.getThumbnailPath() %>" style="width:400px;height:250px">
                     </div>
                     <div class="carousel-caption" style="left:0%;right:0%;padding-bottom:0px">
-                      <h3><a href="archive/<%= archive.getId() %>"><%= archive.getTitle() %></a></h3>
+                      <h3><a href="<%= request.getContextPath() %>/archive/<%= archive.getId() %>"><%= archive.getTitle() %></a></h3>
                       <div style="color:#3DBAF4"><%= archive.getText() %></div>
                     </div>
                   </div>
@@ -57,12 +57,12 @@
         <div class="board">
           <div class="board-head" style="padding:1px 0px;border-bottom: 3px solid #58B329">
             <h3>
-              <a href="page/1" style="color:#58B329">中心介绍</a>
+              <a href="<%= request.getContextPath() %>/page/1" style="color:#58B329">中心介绍</a>
             </h3>
           </div>
           <div class="board-body">
             <div style="margin:20px 10px;color:#58B329">
-              <%= introductionPage.getText().substring(0, 265) %>...<a href="page/<%= introductionPage.getId() %>">显示全文</a>
+              <%= introductionPage.getText().substring(0, 265) %>...<a href="<%= request.getContextPath() %>/page/<%= introductionPage.getId() %>">显示全文</a>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
                 <tbody>
                   <% for (Archive archive : latestArchives) { %>
                   <tr style="border-bottom: 1px dotted #b7b7b7">
-                    <td class="col-md-6"><img src="resources/img/list-item.gif" style="margin-right:10px"><a href="archive/<%= archive.getId() %>" style="color:#FF8F3F"><%= archive.getTitle() %></a></td>
+                    <td class="col-md-6"><img src="<%= request.getContextPath() %>/resources/img/list-item.gif" style="margin-right:10px"><a href="<%= request.getContextPath() %>/archive/<%= archive.getId() %>" style="color:#FF8F3F"><%= archive.getTitle() %></a></td>
                     <td class="col-md-1"><%= DateFormatUtils.format(archive.getPublishDatetime(), "MM-dd",TimeZone.getTimeZone("GMT+8")) %></td>
                     <td class="col-md-1"><span class="badge pull-right"><%= archive.getClick() %></span></td>
                   </tr>

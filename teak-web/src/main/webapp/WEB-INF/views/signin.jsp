@@ -16,7 +16,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <form id="signin-form" action="signin" method="post">
+        <form id="signin-form" action="<%= request.getContextPath() %>/signin" method="post">
           <div class="form-group">
             <label for="name">用户名</label>
             <input id="name" name="name" type="text" class="form-control">

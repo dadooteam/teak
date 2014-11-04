@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="/admin/category/add">新分类</a>
+        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/category/add">新分类</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -38,7 +38,7 @@
                 <td><%= c.getName() %></td>
                 <td><%= c.getDescription() %></td>
                 <td>
-                  <a href="/admin/category/<%= c.getId() %>/update">修改</a>
+                  <a href="<%= request.getContextPath() %>/admin/category/<%= c.getId() %>/update">修改</a>
                 </td>
               </tr>
               <% } %>

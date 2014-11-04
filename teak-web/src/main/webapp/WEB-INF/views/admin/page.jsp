@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="/admin/page/add">新增页面</a>
+        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/page/add">新增页面</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -37,14 +37,14 @@
           <tbody>
             <% for (Page p : pages) { %>
             <tr>
-              <td><a href="/page/<%= p.getId() %>"><%= p.getName() %></a></td>
+              <td><a href="<%= request.getContextPath() %>/page/<%= p.getId() %>"><%= p.getName() %></a></td>
               <td><%= p.getTitle() %></td>
               <td><%= p.getAuthor() %></td>
               <td><%= p.getClick() %></td>
               <td><%= DateFormatUtils.format(p.getPublishDatetime(), "yyyy-MM-dd HH:mm",TimeZone.getTimeZone("GMT+8")) %></td>
               <td>
-                <a href="/admin/page/<%= p.getId() %>/update">修改</a>
-                <a href="/admin/page/<%= p.getId() %>/delete">删除</a>
+                <a href="<%= request.getContextPath() %>/admin/page/<%= p.getId() %>/update">修改</a>
+                <a href="<%= request.getContextPath() %>/admin/page/<%= p.getId() %>/delete">删除</a>
               </td>
             </tr>
             <% } %>

@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-6">
-        <form id="update-link-form" action="/admin/link/<%= link.getId() %>/update" method="post">
+        <form id="update-link-form" action="<%= request.getContextPath() %>/admin/link/<%= link.getId() %>/update" method="post">
           <div class="form-group">
             <label for="name">名称</label>
             <input id="name" name="name" type="text" class="form-control" value="<%= link.getName() %>">
