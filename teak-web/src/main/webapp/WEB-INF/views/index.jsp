@@ -34,7 +34,7 @@
                 <% for (Archive archive : imageArchives) { %>
                   <div class="item">
                     <div>
-                      <img src="<%= request.getContextPath() %>/<%= archive.getThumbnailPath() %>" style="width:400px;height:250px">
+                      <img src="<%= archive.getThumbnailPath() %>" style="width:400px;height:250px">
                     </div>
                     <div class="carousel-caption" style="left:0%;right:0%;padding-bottom:0px">
                       <h3><a href="<%= request.getContextPath() %>/archive/<%= archive.getId() %>"><%= archive.getTitle() %></a></h3>

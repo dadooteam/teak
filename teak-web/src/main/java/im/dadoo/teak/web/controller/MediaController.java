@@ -7,17 +7,22 @@
 package im.dadoo.teak.web.controller;
 
 import im.dadoo.teak.web.ao.FileService;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -36,12 +41,15 @@ public class MediaController {
   
 	@RequestMapping(value = "/api/upload/media", method = RequestMethod.POST)
 	@ResponseBody
-	public String uploadImage(@RequestParam Integer CKEditorFuncNum, 
-          @RequestParam MultipartFile upload, HttpSession session) 
+	public String uploadImage(@RequestParam Integer CKEditorFuncNum, @RequestParam MultipartFile upload) 
           throws IllegalStateException, IOException {
-    String root = session.getServletContext().getRealPath("/");
-    String path = this.fileService.save(upload, root);
-		String result = String.format(CKEDITOR_CALLBACK, CKEditorFuncNum, path, "上传成功");
+    Optional<String> path = this.fileService.save(upload);
+    String result = "";
+    if (path.isPresent()) {
+      result = String.format(CKEDITOR_CALLBACK, CKEditorFuncNum, path.get(), "上传成功");
+    } else {
+      result = String.format(CKEDITOR_CALLBACK, CKEditorFuncNum, path.orNull(), "上传失败");
+    }
     return result;
   }
 }

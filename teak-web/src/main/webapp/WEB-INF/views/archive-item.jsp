@@ -28,7 +28,7 @@
         </small>
         <% if(archive.getThumbnailPath() != null) { %>
         <div class="thumbnail-wrapper">
-          <img src="<%= request.getContextPath() %>/<%= archive.getThumbnailPath() %>" width="400px">
+          <img src="<%= archive.getThumbnailPath() %>" width="400px">
         </div>
         <% } %>
         <div style="margin-top:30px"><%= archive.getHtml() %></div>
