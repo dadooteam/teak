@@ -6,7 +6,7 @@
 
 package im.dadoo.teak.web.configuration;
 
-import im.dadoo.teak.biz.configuration.BizContext;
+import im.dadoo.teak.biz.configuration.TeakBizContext;
 import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -25,7 +25,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class<?>[] {TeakWebContext.class,BizContext.class};
+    return new Class<?>[] {TeakWebContext.class,TeakBizContext.class};
   }
 
   @Override

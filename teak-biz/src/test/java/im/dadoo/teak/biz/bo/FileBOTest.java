@@ -5,7 +5,7 @@ import java.io.File;
 import javax.annotation.Resource;
 
 import im.dadoo.teak.biz.bo.impl.QiniuFileBO;
-import im.dadoo.teak.biz.configuration.BizContext;
+import im.dadoo.teak.biz.configuration.TeakBizContext;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = BizContext.class)
+@ContextConfiguration(classes = TeakBizContext.class)
 public class FileBOTest {
   
   @Resource
