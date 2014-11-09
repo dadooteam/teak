@@ -6,21 +6,18 @@
 
 package im.dadoo.teak.web.controller;
 
-import im.dadoo.teak.biz.bo.ArchiveService;
-import im.dadoo.teak.biz.bo.CategoryService;
-import im.dadoo.teak.biz.bo.LinkService;
-import im.dadoo.teak.biz.bo.PageService;
-import im.dadoo.teak.data.po.Archive;
-import im.dadoo.teak.data.po.Category;
-import im.dadoo.teak.data.po.Link;
-import im.dadoo.teak.data.po.Page;
-import im.dadoo.teak.data.po.User;
+import im.dadoo.teak.biz.bo.ArchiveBO;
+import im.dadoo.teak.biz.bo.CategoryBO;
+import im.dadoo.teak.biz.bo.LinkBO;
+import im.dadoo.teak.biz.bo.PageBO;
+import im.dadoo.teak.data.po.ArchivePO;
+import im.dadoo.teak.data.po.CategoryPO;
+import im.dadoo.teak.data.po.LinkPO;
+import im.dadoo.teak.data.po.PagePO;
+import im.dadoo.teak.data.po.UserPO;
 import im.dadoo.teak.web.constant.Cons;
-import im.dadoo.teak.web.util.RequestUtil;
-import im.dadoo.teak.web.vo.PaginationVO;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -28,9 +25,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
-
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
 
 /**
  *
@@ -41,16 +35,16 @@ public class BaseController {
   protected static final Logger logger = LoggerFactory.getLogger("im.dadoo.teak.web.controller");
   
   @Resource
-  protected ArchiveService archiveService;
+  protected ArchiveBO defaultArchiveBO;
   
   @Resource
-  protected LinkService linkService;
+  protected LinkBO defaultLinkBO;
   
   @Resource
-  protected CategoryService categoryService;
+  protected CategoryBO defaultCategoryBO;
   
   @Resource
-  protected PageService pageService;
+  protected PageBO defaultPageBO;
   
   protected void renderDefault(ModelMap map) {
 		this.renderLinks(map);
@@ -58,36 +52,27 @@ public class BaseController {
 	}
 	
 	protected void renderLinks(ModelMap map) {
-		List<Link> links = this.linkService.list();
-		map.addAttribute("links", links);
+		List<LinkPO> linkPOs = this.defaultLinkBO.list();
+		map.addAttribute("links", linkPOs);
 	}
 	
   protected void renderNav(ModelMap map) {
-    List<Category> categories = this.categoryService.list();
-    List<Page> pages = this.pageService.list();
-    map.addAttribute("categoryNav", categories);
-    map.addAttribute("pageNav", pages);
+    List<CategoryPO> categoryPOs = this.defaultCategoryBO.list();
+    List<PagePO> pagePOs = this.defaultPageBO.list();
+    map.addAttribute("categoryNav", categoryPOs);
+    map.addAttribute("pageNav", pagePOs);
   }
   
 	protected void renderLatestArchives(ModelMap map) {
-		List<Archive> latestArchives = this.archiveService.list(10);
-		map.addAttribute("latestArchives", latestArchives);
+		List<ArchivePO> latestArchivePOs = this.defaultArchiveBO.list(10);
+		map.addAttribute("latestArchives", latestArchivePOs);
 	}
 	
-	protected PaginationVO renderPagination(Map<String, String[]> params, String baseUrl, int cur, int max) {
-	  Preconditions.checkNotNull(params);
-	  Map<String, String[]> cloned = Maps.newHashMap(params);
-	  cloned.put("pagecount", new String[]{"%s"});
-	  String queryString = RequestUtil.buildQueryString(cloned);
-	  logger.info(queryString);
-	  return new PaginationVO(baseUrl + "?" + queryString, cur, max);
+	protected UserPO getVisitor(HttpSession session) {
+		return (UserPO)session.getAttribute(Cons.VISITOR);
 	}
 	
-	protected User getVisitor(HttpSession session) {
-		return (User)session.getAttribute(Cons.VISITOR);
-	}
-	
-	protected void setVisitor(HttpSession session, User visitor) {
+	protected void setVisitor(HttpSession session, UserPO visitor) {
 		session.setAttribute(Cons.VISITOR, visitor);
 	}
 	

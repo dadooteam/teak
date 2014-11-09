@@ -6,16 +6,20 @@
 
 package im.dadoo.teak.web.controller;
 
-import im.dadoo.teak.biz.bo.SignService;
-import im.dadoo.teak.data.po.User;
+import im.dadoo.teak.biz.bo.SignBO;
+import im.dadoo.teak.data.po.UserPO;
 import im.dadoo.teak.web.constant.Cons;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -25,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SignController extends BaseController {
   
   @Resource
-  private SignService signService;
+  private SignBO defaultSignBO;
   
   @RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String getSigninPage(HttpSession session, ModelMap map) {
@@ -42,9 +46,9 @@ public class SignController extends BaseController {
 	public String signin(HttpSession session, 
 			@RequestParam String name, @RequestParam String password) {
 		if (this.getVisitor(session) == null) {
-			User visitor = this.signService.signin(name, password);
-			if (visitor != null) {
-				this.setVisitor(session, visitor);
+			Optional<UserPO> visitorOPO = this.defaultSignBO.signin(name, password);
+			if (visitorOPO.isPresent()) {
+				this.setVisitor(session, visitorOPO.get());
 				String fromUrl = null;
 				//转到登录之前的url上去
 				if ((fromUrl = (String)session.getAttribute(Cons.FROM_URL)) != null) {

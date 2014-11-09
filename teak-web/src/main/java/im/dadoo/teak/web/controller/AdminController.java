@@ -6,18 +6,22 @@
 
 package im.dadoo.teak.web.controller;
 
-import im.dadoo.teak.data.po.Archive;
-import im.dadoo.teak.data.po.Category;
-import im.dadoo.teak.data.po.Link;
-import im.dadoo.teak.data.po.Page;
+import im.dadoo.teak.data.po.ArchivePO;
+import im.dadoo.teak.data.po.CategoryPO;
+import im.dadoo.teak.data.po.LinkPO;
+import im.dadoo.teak.data.po.PagePO;
+
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -35,8 +39,8 @@ public class AdminController extends BaseController {
   @RequestMapping(value = "/admin/category", method = RequestMethod.GET)
   public String getAdminCategoryPage(ModelMap map) {
     this.renderNav(map);
-    List<Category> categories = this.categoryService.list();
-    map.addAttribute("categories", categories);
+    List<CategoryPO> categoryPOs = this.defaultCategoryBO.list();
+    map.addAttribute("categories", categoryPOs);
     return "admin/category";
   }
   
@@ -47,11 +51,11 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/category/{id}/update", method = RequestMethod.GET)
-  public String getAdminCategoryUpdatePage(ModelMap map, @PathVariable Integer id) {
-    Category category = this.categoryService.findById(id);
-    if (category != null) {
+  public String getAdminCategoryUpdatePage(ModelMap map, @PathVariable long id) {
+    Optional<CategoryPO> categoryOPO = this.defaultCategoryBO.findById(id);
+    if (categoryOPO.isPresent()) {
       this.renderNav(map);
-      map.addAttribute("category", category);
+      map.addAttribute("category", categoryOPO.get());
       return "admin/category-update";
     } else {
       return "redirect:/404";
@@ -61,8 +65,8 @@ public class AdminController extends BaseController {
   @RequestMapping(value = "/admin/link", method = RequestMethod.GET)
   public String getAdminLinkPage(ModelMap map) {
     this.renderNav(map);
-    List<Link> links = this.linkService.list();
-    map.addAttribute("links", links);
+    List<LinkPO> linkPOs = this.defaultLinkBO.list();
+    map.addAttribute("links", linkPOs);
     return "admin/link";
   }
   
@@ -73,11 +77,11 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/link/{id}/update", method = RequestMethod.GET)
-  public String getAdminLinkUpdatePage(ModelMap map, @PathVariable Integer id) {
-    Link link = this.linkService.findById(id);
-    if (link != null) {
+  public String getAdminLinkUpdatePage(ModelMap map, @PathVariable long id) {
+    Optional<LinkPO> linkOPO = this.defaultLinkBO.findById(id);
+    if (linkOPO.isPresent()) {
       this.renderNav(map);
-      map.addAttribute("link", link);
+      map.addAttribute("link", linkOPO);
       return "admin/link-update";
     } else {
       return "redirect:/404";
@@ -90,13 +94,15 @@ public class AdminController extends BaseController {
           @RequestParam(required = false) Integer pagesize) {
     
     this.renderNav(map);
-    if (pagecount == null || pagesize == null) {
+    if (pagecount == null) {
       pagecount = 0;
+    }
+    if (pagesize == null) {
       pagesize = 30;
     }
-    List<Archive> archives = this.archiveService.list(pagecount, pagesize);
-    Map<Integer, Category> categoryMap = this.categoryService.map();
-    map.addAttribute("archives", archives);
+    List<ArchivePO> archivePOs = this.defaultArchiveBO.list(pagecount, pagesize);
+    Map<Long, CategoryPO> categoryMap = this.defaultCategoryBO.map();
+    map.addAttribute("archives", archivePOs);
     map.addAttribute("categoryMap", categoryMap);
     return "admin/archive";
   }
@@ -104,19 +110,19 @@ public class AdminController extends BaseController {
   @RequestMapping(value = "/admin/archive/add", method = RequestMethod.GET)
   public String getAdminArchiveAddPage(ModelMap map) {
     this.renderNav(map);
-    List<Category> categories = this.categoryService.list();
-    map.addAttribute("categories", categories);
+    List<CategoryPO> categoryPOs = this.defaultCategoryBO.list();
+    map.addAttribute("categories", categoryPOs);
     return "admin/archive-add";
   }
   
   @RequestMapping(value = "/admin/archive/{id}/update", method = RequestMethod.GET)
-  public String getAdminArchiveUpdatePage(ModelMap map, @PathVariable Integer id) {
-    Archive archive = this.archiveService.findById(id);
-    if (archive != null) {
+  public String getAdminArchiveUpdatePage(ModelMap map, @PathVariable long id) {
+    Optional<ArchivePO> archiveOPO = this.defaultArchiveBO.findById(id);
+    if (archiveOPO.isPresent()) {
       this.renderNav(map);
-      List<Category> categories = this.categoryService.list();
-      map.addAttribute("archive", archive);
-      map.addAttribute("categories", categories);
+      List<CategoryPO> categoryPOs = this.defaultCategoryBO.list();
+      map.addAttribute("archive", archiveOPO.get());
+      map.addAttribute("categories", categoryPOs);
       return "admin/archive-update";
     } else {
       return "redirect:/404";
@@ -126,8 +132,8 @@ public class AdminController extends BaseController {
   @RequestMapping(value = "/admin/page", method = RequestMethod.GET)
   public String getAdminPagePage(ModelMap map) {
     this.renderNav(map);
-    List<Page> pages = this.pageService.list();
-    map.addAttribute("pages", pages);
+    List<PagePO> pagePOs = this.defaultPageBO.list();
+    map.addAttribute("pages", pagePOs);
     return "admin/page";
   }
   
@@ -138,11 +144,11 @@ public class AdminController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/page/{id}/update", method = RequestMethod.GET)
-  public String getAdminPageUpdatePage(ModelMap map, @PathVariable Integer id) {
-    Page page = this.pageService.findById(id);
-    if (page != null) {
+  public String getAdminPageUpdatePage(ModelMap map, @PathVariable long id) {
+    Optional<PagePO> pageOPO = this.defaultPageBO.findById(id);
+    if (pageOPO.isPresent()) {
       this.renderNav(map);
-      map.addAttribute("page", page);
+      map.addAttribute("page", pageOPO.get());
       return "admin/page-update";
     } else {
       return "redirect:/404";

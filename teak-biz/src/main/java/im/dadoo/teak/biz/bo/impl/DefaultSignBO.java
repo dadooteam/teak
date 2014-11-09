@@ -4,14 +4,19 @@
  * and open the template in the editor.
  */
 
-package im.dadoo.teak.biz.bo;
+package im.dadoo.teak.biz.bo.impl;
 
-import im.dadoo.teak.biz.dao.UserDao;
-import im.dadoo.teak.data.po.User;
+import im.dadoo.teak.biz.bo.SignBO;
+import im.dadoo.teak.biz.dao.UserDAO;
+import im.dadoo.teak.data.po.UserPO;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -19,17 +24,18 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-public class SignService {
+public class DefaultSignBO implements SignBO {
   
   @Resource
-  private UserDao userDao;
+  private UserDAO userDAO;
   
-  public User signin(String name, String password) {
-    User user = this.userDao.findByName(name);
-    if (user != null && user.getPassword().equals(password)) {
-      return user;
+  @Override
+  public Optional<UserPO> signin(String name, String password) {
+    UserPO userPO = this.userDAO.findByName(name);
+    if (userPO != null && userPO.getPassword().equals(password)) {
+      return Optional.of(userPO);
     } else {
-      return null;
+      return Optional.absent();
     }
   }
 }

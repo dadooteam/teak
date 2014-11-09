@@ -6,14 +6,11 @@
 
 package im.dadoo.teak.web.controller;
 
-import im.dadoo.teak.web.ao.FileService;
+import im.dadoo.teak.web.ao.FileAO;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +29,7 @@ import com.google.common.base.Optional;
 public class MediaController {
   
   @Resource
-  private FileService fileService;
+  private FileAO fileService;
 	
   private static final String CKEDITOR_CALLBACK = 
           "<script type='text/javascript'>"

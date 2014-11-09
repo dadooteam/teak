@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  List<Page> pages = (List<Page>)request.getAttribute("pages");
+  List<PagePO> pages = (List<PagePO>)request.getAttribute("pages");
 %>
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/page/add">新增页面</a>
+        <a class="btn btn-primary pull-right" href="<%=request.getContextPath()%>/admin/page/add">新增页面</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for (Page p : pages) { %>
+            <% for (PagePO p : pages) { %>
             <tr>
               <td><a href="<%= request.getContextPath() %>/page/<%= p.getId() %>"><%= p.getName() %></a></td>
               <td><%= p.getTitle() %></td>

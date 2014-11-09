@@ -12,11 +12,11 @@ import java.io.Serializable;
  *
  * @author codekitten
  */
-public class Archive implements Serializable {
-  
-  private static final long serialVersionUID = 1L;
-  
-  private Integer id;
+public class ArchivePO implements Serializable {
+
+  private static final long serialVersionUID = 8215748915066979021L;
+
+  private long id;
   
   private String title;
   
@@ -26,57 +26,52 @@ public class Archive implements Serializable {
   
   private String text;
   
-  private Long publishDatetime;
+  private long publishDatetime;
   
-  private Integer click;
+  private int click;
   
   private String thumbnailPath;
   
-  private Integer categoryId;
+  private long categoryId;
 
-  public Archive() {}
-  
-  public static Archive create(String title, String author, String html, String text,
-          Long publishDatetime, Integer click, String thumbnailPath, Integer categoryId) {
-    Archive archive = new Archive();
-    archive.setTitle(title);
-    archive.setAuthor(author);
-    archive.setHtml(html);
-    archive.setText(text);
-    archive.setPublishDatetime(publishDatetime);
-    archive.setClick(click);
-    archive.setThumbnailPath(thumbnailPath);
-    archive.setCategoryId(categoryId);
-    return archive;
-  }
+  public ArchivePO() {} 
   
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("{");
-    sb.append("title:").append(getTitle()).append(",");
-    sb.append("author:").append(getAuthor()).append(",");
-    sb.append("html:").append(getHtml()).append(",");
-    sb.append("text:").append(getText()).append(",");
-    sb.append("publishDatetime:").append(getPublishDatetime()).append(",");
-    sb.append("click:").append(getClick()).append(",");
-    sb.append("thumbnaliPath:").append(getThumbnailPath()).append(",");
-    sb.append("categoryId:").append(getCategoryId());
-    sb.append("}");
-    return sb.toString();
+    StringBuilder builder = new StringBuilder();
+    builder.append("ArchivePO [id=");
+    builder.append(id);
+    builder.append(", title=");
+    builder.append(title);
+    builder.append(", author=");
+    builder.append(author);
+    builder.append(", html=");
+    builder.append(html);
+    builder.append(", text=");
+    builder.append(text);
+    builder.append(", publishDatetime=");
+    builder.append(publishDatetime);
+    builder.append(", click=");
+    builder.append(click);
+    builder.append(", thumbnailPath=");
+    builder.append(thumbnailPath);
+    builder.append(", categoryId=");
+    builder.append(categoryId);
+    builder.append("]");
+    return builder.toString();
   }
-  
+
   /**
    * @return the id
    */
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
   /**
    * @param id the id to set
    */
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -139,21 +134,21 @@ public class Archive implements Serializable {
   /**
    * @return the publishDatetime
    */
-  public Long getPublishDatetime() {
+  public long getPublishDatetime() {
     return publishDatetime;
   }
 
   /**
    * @param publishDatetime the publishDatetime to set
    */
-  public void setPublishDatetime(Long publishDatetime) {
+  public void setPublishDatetime(long publishDatetime) {
     this.publishDatetime = publishDatetime;
   }
 
   /**
    * @return the click
    */
-  public Integer getClick() {
+  public int getClick() {
     return click;
   }
 
@@ -181,14 +176,14 @@ public class Archive implements Serializable {
   /**
    * @return the categoryId
    */
-  public Integer getCategoryId() {
+  public long getCategoryId() {
     return categoryId;
   }
 
   /**
    * @param categoryId the categoryId to set
    */
-  public void setCategoryId(Integer categoryId) {
+  public void setCategoryId(long categoryId) {
     this.categoryId = categoryId;
   }
   

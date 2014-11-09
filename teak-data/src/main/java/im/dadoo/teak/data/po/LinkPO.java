@@ -12,11 +12,11 @@ import java.io.Serializable;
  *
  * @author codekitten
  */
-public class Link implements Serializable {
+public class LinkPO implements Serializable {
   
-  private static final long serialVersionUID = 1L;
-  
-  private Integer id;
+  private static final long serialVersionUID = 1945553264284018753L;
+
+  private long id;
   
   private String name;
   
@@ -24,38 +24,34 @@ public class Link implements Serializable {
   
   private String description;
   
-  public Link() {}
-
-  public static Link create(String name, String url, String description) {
-    Link link = new Link();
-    link.setName(name);
-    link.setUrl(url);
-    link.setDescription(description);
-    return link;
-  }
+  public LinkPO() {}
   
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("{");
-    sb.append("id:").append(getId()).append(",");
-    sb.append("name:").append(getName()).append(",");
-    sb.append("url:").append(getUrl()).append(",");
-    sb.append("description:").append(getDescription());
-    sb.append("}");
-    return sb.toString();
+    StringBuilder builder = new StringBuilder();
+    builder.append("LinkPO [id=");
+    builder.append(id);
+    builder.append(", name=");
+    builder.append(name);
+    builder.append(", url=");
+    builder.append(url);
+    builder.append(", description=");
+    builder.append(description);
+    builder.append("]");
+    return builder.toString();
   }
+
   /**
    * @return the id
    */
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
   /**
    * @param id the id to set
    */
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 

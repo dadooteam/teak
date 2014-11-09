@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  Archive archive = (Archive)request.getAttribute("archive");
+  ArchivePO archive = (ArchivePO)request.getAttribute("archive");
 %>
 
 <!DOCTYPE html>

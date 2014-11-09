@@ -1,7 +1,7 @@
 package im.dadoo.teak.web.interceptor;
 
 import im.dadoo.teak.web.constant.Cons;
-import im.dadoo.teak.data.po.User;
+import im.dadoo.teak.data.po.UserPO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +28,7 @@ public class SignInterceptor implements HandlerInterceptor {
   @Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
 			Object arg2) throws Exception {
-		User visitor = (User) req.getSession().getAttribute(Cons.VISITOR);
+		UserPO visitor = (UserPO) req.getSession().getAttribute(Cons.VISITOR);
 		if (visitor == null) {
 			req.getSession().setAttribute(Cons.FROM_URL, req.getRequestURL().toString());
 			res.sendRedirect("signin");

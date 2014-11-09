@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  Category category = (Category)request.getAttribute("category");
+  CategoryPO category = (CategoryPO)request.getAttribute("category");
 %>
 
 <!DOCTYPE html>

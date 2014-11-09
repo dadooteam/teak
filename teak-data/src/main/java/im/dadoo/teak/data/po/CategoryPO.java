@@ -12,47 +12,43 @@ import java.io.Serializable;
  *
  * @author codekitten
  */
-public class Category implements Serializable {
+public class CategoryPO implements Serializable {
   
-  private static final long serialVersionUID = 1L;
-  
-  private Integer id;
+  private static final long serialVersionUID = 570101647912043500L;
+
+  private long id;
   
   private String name;
   
   private String description;
   
-  public Category() {}
-  
-  public static Category create(String name, String description) {
-    Category category = new Category();
-    category.setName(name);
-    category.setDescription(description);
-    return category;
-  }
+  public CategoryPO() {}
 
+  
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("{");
-    sb.append("id:").append(getId()).append(",");
-    sb.append("name:").append(getName()).append(",");
-    sb.append("description:").append(getDescription());
-    sb.append("}");
-    return sb.toString();
+    StringBuilder builder = new StringBuilder();
+    builder.append("CategoryPO [id=");
+    builder.append(id);
+    builder.append(", name=");
+    builder.append(name);
+    builder.append(", description=");
+    builder.append(description);
+    builder.append("]");
+    return builder.toString();
   }
-  
+
   /**
    * @return the id
    */
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
   /**
    * @param id the id to set
    */
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 

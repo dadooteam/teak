@@ -24,7 +24,7 @@ import com.google.common.base.Optional;
  * @author codekitten
  */
 @Component
-public class FileService {
+public class FileAO {
 
   @Resource
   private FileBO qiniuFileBO;

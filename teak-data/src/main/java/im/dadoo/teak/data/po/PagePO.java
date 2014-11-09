@@ -12,11 +12,11 @@ import java.io.Serializable;
  *
  * @author codekitten
  */
-public class Page implements Serializable {
-  
-  private static final long serialVersionUID = 1L;
-  
-  private Integer id;
+public class PagePO implements Serializable {
+
+  private static final long serialVersionUID = 4832839882671486980L;
+
+  private long id;
   
   private String name;
   
@@ -28,51 +28,46 @@ public class Page implements Serializable {
   
   private String text;
   
-  private Long publishDatetime;
+  private long publishDatetime;
   
-  private Integer click;
+  private int click;
 
-  public Page() {}
-  
-  public static Page create(String name, String title, String author, String html, String text,
-          Long publishDatetime, Integer click) {
-    Page page = new Page();
-    page.setName(name);
-    page.setTitle(title);
-    page.setAuthor(author);
-    page.setHtml(html);
-    page.setText(text);
-    page.setPublishDatetime(publishDatetime);
-    page.setClick(click);
-    return page;
-  }
+  public PagePO() {}
   
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("{");
-    sb.append("name:").append(getName()).append(",");
-    sb.append("title:").append(getTitle()).append(",");
-    sb.append("author:").append(getAuthor()).append(",");
-    sb.append("html:").append(getHtml()).append(",");
-    sb.append("text:").append(getText()).append(",");
-    sb.append("publishDatetime:").append(getPublishDatetime()).append(",");
-    sb.append("click:").append(getClick()).append(",");
-    sb.append("}");
-    return sb.toString();
+    StringBuilder builder = new StringBuilder();
+    builder.append("PagePO [id=");
+    builder.append(id);
+    builder.append(", name=");
+    builder.append(name);
+    builder.append(", title=");
+    builder.append(title);
+    builder.append(", author=");
+    builder.append(author);
+    builder.append(", html=");
+    builder.append(html);
+    builder.append(", text=");
+    builder.append(text);
+    builder.append(", publishDatetime=");
+    builder.append(publishDatetime);
+    builder.append(", click=");
+    builder.append(click);
+    builder.append("]");
+    return builder.toString();
   }
-  
+
   /**
    * @return the id
    */
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
   /**
    * @param id the id to set
    */
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -149,28 +144,28 @@ public class Page implements Serializable {
   /**
    * @return the publishDatetime
    */
-  public Long getPublishDatetime() {
+  public long getPublishDatetime() {
     return publishDatetime;
   }
 
   /**
    * @param publishDatetime the publishDatetime to set
    */
-  public void setPublishDatetime(Long publishDatetime) {
+  public void setPublishDatetime(long publishDatetime) {
     this.publishDatetime = publishDatetime;
   }
 
   /**
    * @return the click
    */
-  public Integer getClick() {
+  public int getClick() {
     return click;
   }
 
   /**
    * @param click the click to set
    */
-  public void setClick(Integer click) {
+  public void setClick(int click) {
     this.click = click;
   }
   

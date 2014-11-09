@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  List<Link> links = (List<Link>)request.getAttribute("links");
+  List<LinkPO> links = (List<LinkPO>)request.getAttribute("links");
 %>
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/link/add">新链接</a>
+        <a class="btn btn-primary pull-right" href="<%=request.getContextPath()%>/admin/link/add">新链接</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <% if (links != null) { %>
-              <% for (Link link : links) { %>
+              <% for (LinkPO link : links) { %>
               <tr>
                 <td><a href="<%= link.getUrl() %>"><%= link.getName() %></a></td>
                 <td><%= link.getUrl() %></td>

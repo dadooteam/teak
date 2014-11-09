@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  List<Category> categories = (List<Category>)request.getAttribute("categories");
+  List<CategoryPO> categories = (List<CategoryPO>)request.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html lang="zh_cn">
@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <form id="new-post-form" enctype="multipart/form-data" action="<%= request.getContextPath() %>/admin/archive" method="post">
+        <form id="new-post-form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin/archive" method="post">
           <div class="form-group">
             <label for="title">标题</label>
             <input name="title" type="text" class="form-control">
@@ -35,7 +35,7 @@
             <label for="categoryId">分类</label>
             <select name="categoryId" class="form-control">
               <% if (categories != null) { %>
-                <% for (Category c : categories) { %>
+                <% for (CategoryPO c : categories) { %>
                   <option value="<%= c.getId() %>"><%= c.getName() %></option>
                 <% } %>
               <% } %>

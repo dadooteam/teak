@@ -8,8 +8,8 @@
 <%
   PaginationVO paginationVO = (PaginationVO)request.getAttribute("paginationVO");
 	String url = paginationVO.getUrl();
-	int cur = paginationVO.getCur();
-	int max = paginationVO.getMax();
+	long cur = paginationVO.getCur();
+	long max = paginationVO.getMax();
 %>
 
 <ul class="pagination">

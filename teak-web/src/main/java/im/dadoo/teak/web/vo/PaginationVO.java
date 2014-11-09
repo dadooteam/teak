@@ -3,10 +3,10 @@ package im.dadoo.teak.web.vo;
 public class PaginationVO {
   
   private String url;
-  private int cur;
-  private int max;
+  private long cur;
+  private long max;
   
-  public PaginationVO(String url, int cur, int max) {
+  public PaginationVO(String url, long cur, long max) {
     this.url = url;
     this.cur = cur;
     this.max = max;
@@ -33,19 +33,19 @@ public class PaginationVO {
     this.url = url;
   }
 
-  public int getCur() {
+  public long getCur() {
     return cur;
   }
 
-  public void setCur(int cur) {
+  public void setCur(long cur) {
     this.cur = cur;
   }
 
-  public int getMax() {
+  public long getMax() {
     return max;
   }
 
-  public void setMax(int max) {
+  public void setMax(long max) {
     this.max = max;
   }
   

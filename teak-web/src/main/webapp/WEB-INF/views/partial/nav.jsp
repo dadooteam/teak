@@ -3,8 +3,8 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  List<Category> categoryNav = (List<Category>)request.getAttribute("categoryNav");
-  List<Page> pageNav = (List<Page>)request.getAttribute("pageNav");
+  List<CategoryPO> categoryNav = (List<CategoryPO>)request.getAttribute("categoryNav");
+  List<PagePO> pageNav = (List<PagePO>)request.getAttribute("pageNav");
 %>
 
 <style>
@@ -17,14 +17,26 @@
   <div class="container">
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="<%= request.getContextPath() %>/">首页</a></li>
-        <% if (categoryNav != null) { %>
-          <% for (Category category : categoryNav) { %>
-            <li><a href="<%= request.getContextPath() %>/category/<%= category.getId() %>"><%= category.getName() %></a></li>
-          <% } %>
-        <% } %>
-        <% if (pageNav != null) { %>
-          <% for (Page p : pageNav) { %>
+        <li><a href="<%=request.getContextPath()%>/">首页</a></li>
+        <%
+          if (categoryNav != null) {
+        %>
+          <%
+            for (CategoryPO category : categoryNav) {
+          %>
+            <li><a href="<%=request.getContextPath()%>/category/<%=category.getId()%>"><%=category.getName()%></a></li>
+          <%
+            }
+          %>
+        <%
+          }
+        %>
+        <%
+          if (pageNav != null) {
+        %>
+          <%
+            for (PagePO p : pageNav) {
+          %>
             <li><a href="<%= request.getContextPath() %>/page/<%= p.getId() %>"><%= p.getName() %></a></li>
           <% } %>
         <% } %>

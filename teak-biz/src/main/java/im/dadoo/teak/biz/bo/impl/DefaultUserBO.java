@@ -4,14 +4,19 @@
  * and open the template in the editor.
  */
 
-package im.dadoo.teak.biz.bo;
+package im.dadoo.teak.biz.bo.impl;
 
-import im.dadoo.teak.biz.dao.UserDao;
-import im.dadoo.teak.data.po.User;
+import im.dadoo.teak.biz.bo.UserBO;
+import im.dadoo.teak.biz.dao.UserDAO;
+import im.dadoo.teak.data.po.UserPO;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -19,19 +24,22 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-public class UserService {
+public class DefaultUserBO implements UserBO {
   
   @Resource
-  private UserDao userDao;
+  private UserDAO userDAO;
   
-  public User save(String name, String password) {
-    User user = this.userDao.findByName(name);
+  @Override
+  public Optional<UserPO> insert(String name, String password) {
+    UserPO userPO = this.userDAO.findByName(name);
     //判断是否重名
-    if (user == null) {
-      user = User.create(name, password);
-      return this.userDao.save(user);
+    if (userPO == null) {
+      userPO = new UserPO();
+      userPO.setName(name);
+      userPO.setPassword(password);
+      return Optional.of(this.userDAO.insert(userPO));
     } else {
-      return null;
+      return Optional.absent();
     }
   }
 }

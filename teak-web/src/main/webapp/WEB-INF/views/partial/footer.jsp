@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,im.dadoo.teak.web.constant.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  User visitor = (User)session.getAttribute(Cons.VISITOR);
+  UserPO visitor = (UserPO)session.getAttribute(Cons.VISITOR);
 %>
 <div class="footer" style="background-color: #444444;color:white">
   <div class="container">

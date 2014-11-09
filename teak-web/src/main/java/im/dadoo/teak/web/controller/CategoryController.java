@@ -6,12 +6,15 @@
 
 package im.dadoo.teak.web.controller;
 
-import im.dadoo.teak.data.po.Category;
+import im.dadoo.teak.data.po.CategoryPO;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.common.base.Optional;
 
 /**
  *
@@ -23,8 +26,8 @@ public class CategoryController extends BaseController {
   @RequestMapping(value = "/admin/category", method = RequestMethod.POST)
   public String save(@RequestParam String name, 
           @RequestParam(required = false) String description) {
-    Category category = this.categoryService.save(name, description);
-    if (category != null) {
+    Optional<CategoryPO> categoryOPO = this.defaultCategoryBO.insert(name, description);
+    if (categoryOPO.isPresent()) {
       return "redirect:/admin/category";
     } else {
       return "redirect:/404";
@@ -32,18 +35,18 @@ public class CategoryController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/category/{id}/update", method = RequestMethod.POST)
-  public String update(@PathVariable Integer id, 
+  public String update(@PathVariable long id, 
           @RequestParam(required = false) String name, 
           @RequestParam(required = false) String description) {
-    Category category = this.categoryService.findById(id);
-    if (category != null) {
+    Optional<CategoryPO> categoryOPO = this.defaultCategoryBO.findById(id);
+    if (categoryOPO.isPresent()) {
       if (name != null) {
-        category.setName(name);
+        categoryOPO.get().setName(name);
       }
       if (description != null) {
-        category.setDescription(description);
+        categoryOPO.get().setDescription(description);
       }
-      this.categoryService.update(id, category.getName(), category.getDescription());
+      this.defaultCategoryBO.updateAllById(id, categoryOPO.get().getName(), categoryOPO.get().getDescription());
       return "redirect:/admin/category";
     } else {
       return "redirect:/404";

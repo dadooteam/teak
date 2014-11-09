@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  Link link = (Link)request.getAttribute("link");
+  LinkPO link = (LinkPO)request.getAttribute("link");
 %>
 
 <!DOCTYPE html>

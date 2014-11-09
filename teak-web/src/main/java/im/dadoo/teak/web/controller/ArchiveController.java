@@ -6,12 +6,12 @@
 
 package im.dadoo.teak.web.controller;
 
-import im.dadoo.teak.data.po.Archive;
-import im.dadoo.teak.data.po.Category;
+import im.dadoo.teak.data.po.ArchivePO;
+import im.dadoo.teak.data.po.CategoryPO;
 import im.dadoo.teak.web.constant.Cons;
 import im.dadoo.teak.web.util.PaginationUtil;
 import im.dadoo.teak.web.vo.PaginationVO;
-import im.dadoo.teak.web.ao.FileService;
+import im.dadoo.teak.web.ao.FileAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,16 +38,16 @@ import com.google.common.base.Optional;
 public class ArchiveController extends BaseController {
   
   @Resource
-  private FileService fileService;
+  private FileAO fileAO;
   
   @RequestMapping(value = "/archive/{id}", method = RequestMethod.GET)
-	public String getItemPage(ModelMap map, @PathVariable Integer id) {
+	public String getItemPage(ModelMap map, @PathVariable long id) {
 		this.renderNav(map);
 		this.renderDefault(map);
-		Archive archive = this.archiveService.findById(id);
-		if (archive != null) {
-			this.archiveService.click(id);
-			map.addAttribute("archive", archive);
+		Optional<ArchivePO> archiveOPO = this.defaultArchiveBO.findById(id);
+		if (archiveOPO.isPresent()) {
+			this.defaultArchiveBO.click(id);
+			map.addAttribute("archive", archiveOPO.get());
 			return "archive-item";
 		}
 		else {
@@ -57,22 +57,26 @@ public class ArchiveController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
-	public String getListPage(ModelMap map, HttpServletRequest request , @PathVariable Integer id,
+	public String getListPage(ModelMap map, HttpServletRequest request , @PathVariable long id,
 			@RequestParam(required = false) Integer pagecount,
       @RequestParam(required = false) Integer pagesize) {
 		
-    if (pagecount == null) pagecount = 0;
-    if (pagesize == null) pagesize = Cons.DEFAULT_PAGE_SIZE;
-		Category category = this.categoryService.findById(id);
-		if (category != null) {
+	  if (pagecount == null) {
+	    pagecount = 0;
+	  }
+    if (pagesize == null) {
+      pagesize = Cons.DEFAULT_PAGE_SIZE;
+    }
+		Optional<CategoryPO> categoryOPO = this.defaultCategoryBO.findById(id);
+		if (categoryOPO.isPresent()) {
 			this.renderNav(map);
 			this.renderDefault(map);
 			
-			List<Archive> archives = this.archiveService.listByCategoryId(id, pagecount, pagesize);
-			map.addAttribute("category", category);
-			map.addAttribute("archives", archives);
+			List<ArchivePO> archivePOs = this.defaultArchiveBO.pageByCategoryId(id, pagecount, pagesize);
+			map.addAttribute("category", categoryOPO.get());
+			map.addAttribute("archives", archivePOs);
 
-      Integer max = 1 + this.archiveService.sizeByCategoryId(id) / pagesize;
+      long max = 1 + this.defaultArchiveBO.sizeByCategoryId(id) / pagesize;
 			//map.addAttribute("paginationVO", this.renderPagination(request.getParameterMap(), "category/" + id, pagecount, max));
       map.addAttribute("paginationVO", new PaginationVO(PaginationUtil.template(request.getQueryString()), pagecount, max));
 			return "archive-list";
@@ -86,12 +90,12 @@ public class ArchiveController extends BaseController {
   @RequestMapping(value = "/admin/archive", method = RequestMethod.POST)
   public String save(@RequestParam String title, 
 			@RequestParam(required = false) String author, @RequestParam(required = false) String html,
-			@RequestParam Integer categoryId, 
+			@RequestParam long categoryId, 
       @RequestParam(required = false) MultipartFile thumbnail) 
           throws IllegalStateException, IOException {
-    Optional<String> path = this.fileService.save(thumbnail);
-    Archive archive = this.archiveService.save(title, author, html, path.orNull(), categoryId);
-    if (archive != null) {
+    Optional<String> path = this.fileAO.save(thumbnail);
+    Optional<ArchivePO> archiveOPO = this.defaultArchiveBO.insert(title, author, html, path.orNull(), categoryId);
+    if (archiveOPO.isPresent()) {
       return "redirect:/admin/archive";
     } else {
       return "redirect:/404";
@@ -99,38 +103,39 @@ public class ArchiveController extends BaseController {
   }
   
   @RequestMapping(value = "/admin/archive/{id}/update", method = RequestMethod.POST)
-  public String update(HttpSession session, @PathVariable Integer id, 
+  public String update(HttpSession session, @PathVariable long id, 
           @RequestParam(required = false) String title, 
           @RequestParam(required = false) String author, 
-          @RequestParam(required = false) Integer categoryId, 
+          @RequestParam(required = false) long categoryId, 
           @RequestParam(required = false) String html, 
           @RequestParam(required = false) MultipartFile thumbnail) 
           throws IllegalStateException, IOException {
-    Archive archive = this.archiveService.findById(id);
+    Optional<ArchivePO> archiveOPO = this.defaultArchiveBO.findById(id);
     if (title != null) {
-      archive.setTitle(title);
+      archiveOPO.get().setTitle(title);
     }
     if (author != null) {
-      archive.setAuthor(author);
+      archiveOPO.get().setAuthor(author);
     }
-    if (categoryId != null) {
-      archive.setCategoryId(categoryId);
+    if (categoryId != 0) {
+      archiveOPO.get().setCategoryId(categoryId);
     }
     if (html != null) {
-      archive.setHtml(html);
+      archiveOPO.get().setHtml(html);
     }
     if (!thumbnail.isEmpty()) {
-			Optional<String> path = this.fileService.save(thumbnail);
-      archive.setThumbnailPath(path.orNull());
+			Optional<String> path = this.fileAO.save(thumbnail);
+      archiveOPO.get().setThumbnailPath(path.orNull());
     }
-    this.archiveService.update(id, archive.getTitle(), archive.getAuthor(), archive.getHtml(), 
-            archive.getPublishDatetime(), archive.getThumbnailPath(), archive.getCategoryId());
+    this.defaultArchiveBO.updateAllById(id, archiveOPO.get().getTitle(), archiveOPO.get().getAuthor(), 
+        archiveOPO.get().getHtml(), archiveOPO.get().getPublishDatetime(), archiveOPO.get().getThumbnailPath(), 
+        archiveOPO.get().getCategoryId());
     return "redirect:/admin/archive";
   }
   
   @RequestMapping(value = "/admin/archive/{id}/delete", method = RequestMethod.GET)
-  public String deleteById(@PathVariable Integer id) {
-    this.archiveService.deleteById(id);
+  public String deleteById(@PathVariable long id) {
+    this.defaultArchiveBO.deleteById(id);
     return "redirect:/admin/archive";
   }
 }

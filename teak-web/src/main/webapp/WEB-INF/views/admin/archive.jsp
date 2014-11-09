@@ -3,8 +3,8 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  List<Archive> archives = (List<Archive>)request.getAttribute("archives");
-  Map<Integer, Category> categoryMap = (Map<Integer, Category>)request.getAttribute("categoryMap");
+  List<ArchivePO> archives = (List<ArchivePO>)request.getAttribute("archives");
+  Map<Integer, CategoryPO> categoryMap = (Map<Integer, CategoryPO>)request.getAttribute("categoryMap");
 %>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/archive/add">新文章</a>
+        <a class="btn btn-primary pull-right" href="<%=request.getContextPath()%>/admin/archive/add">新文章</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -36,8 +36,12 @@
             </tr>
           </thead>
           <tbody>
-            <% if (archives != null) { %>
-              <% for (Archive ar : archives) { %>
+            <%
+              if (archives != null) {
+            %>
+              <%
+                for (ArchivePO ar : archives) {
+              %>
               <tr>
                 <td><a href="<%= request.getContextPath() %>/archive/<%= ar.getId() %>"><%= ar.getTitle() %></a></td>
                 <td><%= ar.getAuthor() %></td>

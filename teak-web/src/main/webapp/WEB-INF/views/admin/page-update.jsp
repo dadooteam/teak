@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  Page p = (Page)request.getAttribute("page");
+  PagePO p = (PagePO)request.getAttribute("page");
 %>
 <!DOCTYPE html>
 <html lang="zh_cn">

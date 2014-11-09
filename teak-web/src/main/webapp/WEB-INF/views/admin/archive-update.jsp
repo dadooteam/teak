@@ -3,8 +3,8 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  Archive archive = (Archive)request.getAttribute("archive");
-  List<Category> categories = (List<Category>)request.getAttribute("categories");
+  ArchivePO archive = (ArchivePO)request.getAttribute("archive");
+  List<CategoryPO> categories = (List<CategoryPO>)request.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html lang="zh_cn">
@@ -23,23 +23,23 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <form id="update-post-form" enctype="multipart/form-data" action="<%= request.getContextPath() %>/admin/archive/<%= archive.getId() %>/update" method="post">
+        <form id="update-post-form" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin/archive/<%=archive.getId()%>/update" method="post">
           <div class="form-group">
             <label for="title">标题</label>
-            <input name="title" type="text" class="form-control" value="<%= archive.getTitle() %>">
+            <input name="title" type="text" class="form-control" value="<%=archive.getTitle()%>">
           </div>
           <div class="form-group">
             <label for="author">作者</label>
-            <input name="author" type="text" class="form-control" value="<%= archive.getAuthor() %>">
+            <input name="author" type="text" class="form-control" value="<%=archive.getAuthor()%>">
           </div>
           <div class="form-group">
             <label for="categoryId">分类</label>
             <select name="categoryId" class="form-control">
-              <% for (Category c : categories) { %>
-                <% if (c.getId().equals(archive.getCategoryId())) { %>
-                <option value="<%= c.getId() %>" selected="selected"><%= c.getName() %></option>
+              <% for (CategoryPO c : categories) { %>
+                <% if (c.getId() == archive.getCategoryId()) { %>
+                	<option value="<%= c.getId() %>" selected="selected"><%= c.getName() %></option>
                 <% } else { %>
-                <option value="<%= c.getId() %>"><%= c.getName() %></option>
+                	<option value="<%= c.getId() %>"><%= c.getName() %></option>
                 <% } %>
               <% } %>
             </select>

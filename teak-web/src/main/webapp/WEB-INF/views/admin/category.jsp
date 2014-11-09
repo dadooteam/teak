@@ -3,7 +3,7 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  List<Category> categories = (List<Category>)request.getAttribute("categories");
+  List<CategoryPO> categories = (List<CategoryPO>)request.getAttribute("categories");
 %>
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
         <jsp:include page="partial/leftsidebar.jsp" flush="true" />
       </div>
       <div class="col-md-9">
-        <a class="btn btn-primary pull-right" href="<%= request.getContextPath() %>/admin/category/add">新分类</a>
+        <a class="btn btn-primary pull-right" href="<%=request.getContextPath()%>/admin/category/add">新分类</a>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -33,7 +33,7 @@
           </thead>
           <tbody>
             <% if (categories != null) { %>
-              <% for (Category c : categories) { %>
+              <% for (CategoryPO c : categories) { %>
               <tr>
                 <td><%= c.getName() %></td>
                 <td><%= c.getDescription() %></td>

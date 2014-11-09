@@ -12,46 +12,42 @@ import java.io.Serializable;
  *
  * @author codekitten
  */
-public class User implements Serializable {
-  
-  private static final long serialVersionUID = 1L;
-  
-  private Integer id;
+public class UserPO implements Serializable {
+
+  private static final long serialVersionUID = -5312523234515476335L;
+
+  private long id;
   
   private String name;
   
   private String password;
   
-  public User() {}
-  
-  public static User create(String name, String password) {
-    User user = new User();
-    user.setName(name);
-    user.setPassword(password);
-    return user;
-  }
+  public UserPO() {}
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("{");
-    sb.append("id:").append(getId()).append(",");
-    sb.append("name:").append(getName()).append(",");
-    sb.append("password:").append(getPassword());
-    sb.append("}");
-    return sb.toString();
+    StringBuilder builder = new StringBuilder();
+    builder.append("UserPO [id=");
+    builder.append(id);
+    builder.append(", name=");
+    builder.append(name);
+    builder.append(", password=");
+    builder.append(password);
+    builder.append("]");
+    return builder.toString();
   }
+
   /**
    * @return the id
    */
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
   /**
    * @param id the id to set
    */
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 

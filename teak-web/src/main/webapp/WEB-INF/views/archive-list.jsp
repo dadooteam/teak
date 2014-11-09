@@ -3,8 +3,8 @@
 <%@page import="java.util.*,im.dadoo.teak.data.po.*,org.apache.commons.lang3.time.*" %>
 
 <%
-  Category category = (Category)request.getAttribute("category");
-  List<Archive> archives = (List<Archive>)request.getAttribute("archives");
+  CategoryPO category = (CategoryPO)request.getAttribute("category");
+  List<ArchivePO> archives = (List<ArchivePO>)request.getAttribute("archives");
 %>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <head>
   <meta name="description" content="中国当代写作研究中心">
   <jsp:include page="partial/head.jsp" flush="true">
-    <jsp:param name="title" value="<%= category.getName() %>" />
+    <jsp:param name="title" value="<%=category.getName()%>" />
   </jsp:include>
 </head>
 <body>
@@ -23,12 +23,16 @@
       <div class="col-md-8">
         <div class="board" style="border:1px solid #eee;margin-top: 30px">
           <div class="board-head" style="background:#eee;padding:1px 0px">
-            <button class="btn btn-success" disabled="disabled"><%= category.getName() %></button>
+            <button class="btn btn-success" disabled="disabled"><%=category.getName()%></button>
           </div>
           <div class="board-body">
             <ul style="list-style-type: none;padding:0px 10px">
-              <% if (archives != null) { %>
-                <% for (Archive archive : archives) { %>
+              <%
+                if (archives != null) {
+              %>
+                <%
+                  for (ArchivePO archive : archives) {
+                %>
                   <li style="border-bottom:1px solid #eee;padding:5px">
                     <h3 style="font-weight:bold"><a href="<%= request.getContextPath() %>/archive/<%= archive.getId() %>"><%= archive.getTitle() %></a></h3>
                     <small style="color:#666 "><%= archive.getAuthor() %>&nbsp;发布于&nbsp;<%= DateFormatUtils.format(archive.getPublishDatetime(), "yyyy-MM-dd HH:mm",TimeZone.getTimeZone("GMT+8")) %>&nbsp;<%= archive.getClick() %>浏览</small>
