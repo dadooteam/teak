@@ -31,9 +31,7 @@
           <div class="board-body">
             <div id="teak-carousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner" style="text-align:center">
-                <%
-                  for (ArchivePO archive : imageArchives) {
-                %>
+                <% for (ArchivePO archive : imageArchives) { %>
                   <div class="item">
                     <div>
                       <img src="<%=archive.getThumbnailPath()%>" style="width:400px;height:250px">
@@ -43,9 +41,7 @@
                       <div style="color:#3DBAF4"><%=archive.getText()%></div>
                     </div>
                   </div>
-                <%
-                  }
-                %>
+                <% } %>
               </div>
               <a class="left carousel-control" href="#teak-carousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -66,7 +62,7 @@
           </div>
           <div class="board-body">
             <div style="margin:20px 10px;color:#58B329">
-              <%=introductionPage.getText().substring(0, 265)%>...<a href="<%=request.getContextPath()%>/page/<%=introductionPage.getId()%>">显示全文</a>
+              <%= introductionPage.getText().substring(0, 265)%>...<a href="<%=request.getContextPath()%>/page/<%= introductionPage.getId()%>">显示全文</a>
             </div>
           </div>
         </div>
@@ -84,17 +80,13 @@
             <div style="margin:20px 0px">
               <table>
                 <tbody>
-                  <%
-                    for (ArchivePO archive : latestArchives) {
-                  %>
+                  <% for (ArchivePO archive : latestArchives) { %>
                   <tr style="border-bottom: 1px dotted #b7b7b7">
                     <td class="col-md-6"><img src="<%=request.getContextPath()%>/resources/img/list-item.gif" style="margin-right:10px"><a href="<%=request.getContextPath()%>/archive/<%=archive.getId()%>" style="color:#FF8F3F"><%=archive.getTitle()%></a></td>
                     <td class="col-md-1"><%=DateFormatUtils.format(archive.getPublishDatetime(), "MM-dd",TimeZone.getTimeZone("GMT+8"))%></td>
                     <td class="col-md-1"><span class="badge pull-right"><%=archive.getClick()%></span></td>
                   </tr>
-                  <%
-                    }
-                  %>
+                  <% } %>
                 </tbody>
               </table>
             </div>

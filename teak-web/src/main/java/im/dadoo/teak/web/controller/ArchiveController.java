@@ -77,7 +77,6 @@ public class ArchiveController extends BaseController {
 			map.addAttribute("archives", archivePOs);
 
       long max = 1 + this.defaultArchiveBO.sizeByCategoryId(id) / pagesize;
-			//map.addAttribute("paginationVO", this.renderPagination(request.getParameterMap(), "category/" + id, pagecount, max));
       map.addAttribute("paginationVO", new PaginationVO(PaginationUtil.template(request.getQueryString()), pagecount, max));
 			return "archive-list";
 		}

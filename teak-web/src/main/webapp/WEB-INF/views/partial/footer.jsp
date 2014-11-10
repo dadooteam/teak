@@ -43,9 +43,10 @@
         <h3><span class="glyphicon glyphicon-eye-open"></span>版权所有</h3>
         <br>
         <ul>
-          <li>&copy;华中科技大学中国当代写作研究中心&nbsp;2012</li>
+          <li><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;华中科技大学中国当代写作研究中心&nbsp;2012</li>
           <br>
-          <li><span class="glyphicon glyphicon-fire"></span>Designed By <a href="#">Dadoo Team</a></li>
+          <li><span class="glyphicon glyphicon-fire"></span>&nbsp;Designed By <a href="#">Dadoo Team</a></li>
+          <li><span class="glyphicon glyphicon-gift"></span>&nbsp;<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1253550251'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1253550251%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></li>
         </ul>
       </div>
     </div>
