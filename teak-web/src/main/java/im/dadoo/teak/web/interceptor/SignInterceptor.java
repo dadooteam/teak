@@ -31,7 +31,7 @@ public class SignInterceptor implements HandlerInterceptor {
 		UserPO visitor = (UserPO) req.getSession().getAttribute(Cons.VISITOR);
 		if (visitor == null) {
 			req.getSession().setAttribute(Cons.FROM_URL, req.getRequestURL().toString());
-			res.sendRedirect("signin");
+			res.sendRedirect(req.getContextPath() + "/signin");
 			return false;
 		}
 		else {

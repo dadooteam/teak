@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>im.dadoo</groupId>
 	<artifactId>teak</artifactId>
-	<version>0.12.1</version>
+	<version>0.12.2</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>teak-data</module>
