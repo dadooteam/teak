@@ -6,13 +6,7 @@
 
 package im.dadoo.teak.biz.configuration;
 
-import im.dadoo.teak.biz.bo.FileBO;
-import im.dadoo.teak.biz.bo.impl.QiniuFileBO;
-
 import com.alibaba.druid.pool.DruidDataSource;
-import com.qiniu.api.auth.digest.Mac;
-import com.qiniu.api.config.Config;
-import com.qiniu.api.rs.PutPolicy;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -50,13 +44,5 @@ public class TeakBizContext {
     NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(this.dataSource());
     return jdbcTemplate;
   }
-  
-  @Bean
-  public FileBO qiniuFileBO() {
-    Config.ACCESS_KEY = this.env.getProperty("qiniu.access_key");
-    Config.SECRET_KEY = this.env.getProperty("qiniu.secret_key");
-    Mac mac = new Mac(Config.ACCESS_KEY, Config.SECRET_KEY);
-    PutPolicy putPolicy = new PutPolicy(this.env.getProperty("qiniu.bucket"));
-    return new QiniuFileBO(mac, putPolicy, this.env.getProperty("qiniu.project"), this.env.getProperty("qiniu.cdn_url"));
-  }
+
 }

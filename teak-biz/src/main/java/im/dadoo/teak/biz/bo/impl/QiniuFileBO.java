@@ -1,51 +1,52 @@
 package im.dadoo.teak.biz.bo.impl;
 
+import com.qiniu.http.Response;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.util.Auth;
 import im.dadoo.teak.biz.bo.FileBO;
 
 import java.io.File;
 
 
-import org.json.JSONException;
-
 import com.google.common.base.Optional;
-import com.qiniu.api.auth.AuthException;
-import com.qiniu.api.auth.digest.Mac;
-import com.qiniu.api.io.IoApi;
-import com.qiniu.api.io.PutExtra;
-import com.qiniu.api.io.PutRet;
-import com.qiniu.api.rs.PutPolicy;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
-//在context中创建
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
+@Component
 public class QiniuFileBO implements FileBO {
+
+  @Resource
+  private Environment env;
   
-  private Mac mac;
-  private PutPolicy putPolicy;
-  private String project;
-  private String cdnUrl;
-  
-  public QiniuFileBO(Mac mac, PutPolicy putPolicy, String project, String cdnUrl) {
-    this.mac = mac;
-    this.putPolicy = putPolicy;
-    this.project = project;
-    this.cdnUrl = cdnUrl;
+  private Auth auth;
+  private UploadManager uploadManager;
+
+  @PostConstruct
+  public void init() {
+    this.auth = Auth.create(this.env.getProperty("qiniu.access_key"), this.env.getProperty("qiniu.secret_key"));
+    this.uploadManager = new UploadManager();
   }
   
   public Optional<String> save(File src) {
     try {
       if (src != null && src.exists()) {
-        String uptoken = this.putPolicy.token(this.mac);
-        PutExtra extra = new PutExtra();
-        String dstPath = this.project + "/" + src.getName();
-        PutRet ret = IoApi.putFile(uptoken, dstPath, src, extra);
-        if (ret.ok()) {
-          return Optional.of(this.cdnUrl + dstPath);
+        //调用put方法上传
+        String upToken = this.auth.uploadToken(this.env.getProperty("qiniu.bucket"));
+        String dstPath = this.env.getProperty("qiniu.project") + "/" + src.getName();
+        Response res = this.uploadManager.put(src, dstPath, upToken);
+
+        if (res.isOK()) {
+          return Optional.of(this.env.getProperty("qiniu.cdn_url") + dstPath);
         } else {
           return Optional.absent();
         }
       } else {
         return Optional.absent();
       }
-    } catch(AuthException | JSONException e) {
+    } catch(Exception e) {
       e.printStackTrace();
       return Optional.absent();
     }

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>im.dadoo</groupId>
 		<artifactId>teak</artifactId>
-		<version>0.12.2</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<artifactId>teak-biz</artifactId>
@@ -31,7 +31,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.qiniu</groupId>
-			<artifactId>sdk</artifactId>
+			<artifactId>qiniu-java-sdk</artifactId>
 		</dependency>
 		<!-- spring dependencies -->
 		<dependency>
